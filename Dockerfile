@@ -1,10 +1,12 @@
 FROM golang
 
-ENV SRC_DIR=/go/src/testapp/
+WORKDIR /go/src/testapp
 
-ADD . $SRC_DIR
+RUN go get -d -v -u github.com/aws/aws-sdk-go
 
-RUN cd $SRC_DIR; go build -o testapp
+COPY main.go .
+
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o testapp .
 
 ENTRYPOINT ["./testapp"]
 
