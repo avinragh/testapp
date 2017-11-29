@@ -9,7 +9,7 @@ COPY main.go .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o testapp .
 
 
-FROM scratch:latest
+FROM scratch   
 
 WORKDIR /testapp/
 
